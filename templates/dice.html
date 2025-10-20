@@ -1,0 +1,29 @@
+{% extends 'home.html' %}
+{% block content %}
+<h2>Dice Operation</h2>
+
+<form method="POST" action="/dice">
+    <label for="region">Select Region:</label>
+    <select name="region" id="region">
+        {% for r in regions %}
+            <option value="{{ r }}" {% if r == selected_region %}selected{% endif %}>{{ r }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="year">Select Year:</label>
+    <select name="year" id="year">
+        {% for y in years %}
+            <option value="{{ y }}" {% if y == selected_year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Generate Chart</button>
+</form>
+
+<br>
+
+{% if chart %}
+    <h3>Average Transaction Amounts for {{ selected_region }} ({{ selected_year }})</h3>
+    <img src="data:image/png;base64,{{ chart }}" alt="Dice Chart" style="max-width:100%; height:auto; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+{% endif %}
+{% endblock %}

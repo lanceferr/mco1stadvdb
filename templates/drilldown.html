@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+{% block content %}
+<h2>Drilldown Report</h2>
+<form method="post">
+    <label>Region:</label>
+    <select name="region" onchange="this.form.submit()">
+        <option value="">All Regions</option>
+        {% for r in regions %}
+            <option value="{{ r }}" {% if selected_region == r %}selected{% endif %}>{{ r }}</option>
+        {% endfor %}
+    </select>
+
+    {% if selected_region %}
+    <label>District:</label>
+    <select name="district" onchange="this.form.submit()">
+        <option value="">Select District</option>
+        {% for d in districts %}
+            <option value="{{ d }}" {% if selected_district == d %}selected{% endif %}>{{ d }}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+
+</form>
+
+{% if chart %}
+    <img src="data:image/png;base64,{{ chart }}" style="max-width:100%; height:auto;">
+{% endif %}
+
+{% if table_html %}
+    {{ table_html|safe }}
+{% endif %}
+{% endblock %}

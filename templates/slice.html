@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+{% block content %}
+<h2>Slice Operation</h2>
+
+<form method="POST" action="/slice">
+    <label for="region">Select Region:</label>
+    <select name="region" id="region">
+        {% for r in regions %}
+            <option value="{{ r }}" {% if r == selected_region %}selected{% endif %}>{{ r }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Generate Chart</button>
+</form>
+
+<br>
+
+{% if chart %}
+    <h3>Average Transaction Amounts for {{ selected_region }}</h3>
+    <img src="data:image/png;base64,{{ chart }}" alt="Slice Chart" style="max-width:100%; height:auto; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+{% endif %}
+
+{% endblock %}

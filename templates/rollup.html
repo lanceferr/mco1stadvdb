@@ -1,0 +1,19 @@
+{% extends 'home.html' %}
+{% block content %}
+<h2>Rollup Report</h2>
+<form method="post">
+    <label>Level:</label>
+    <select name="level" onchange="this.form.submit()">
+        <option value="quarter" {% if selected_level == 'quarter' %}selected{% endif %}>Quarter</option>
+        <option value="year" {% if selected_level == 'year' %}selected{% endif %}>Year</option>
+    </select>
+</form>
+
+{% if chart %}
+    <img src="data:image/png;base64,{{ chart }}" style="max-width:100%; height:auto;">
+{% endif %}
+
+{% if table_html %}
+    {{ table_html|safe }}
+{% endif %}
+{% endblock %}
